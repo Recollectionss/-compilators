@@ -15,7 +15,7 @@ WORKDIR /project
 COPY ./dragon-tiger /project/dragon-tiger
 COPY ./scripts /project/scripts
 
-RUN chmod +x /project/scripts/setup_tiger.sh
+RUN chmod +x /project/scripts/*.sh
 
 CMD ["/bin/bash"]
 
