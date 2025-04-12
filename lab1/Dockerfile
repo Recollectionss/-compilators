@@ -13,9 +13,9 @@ RUN apt-get update && apt-get install -y \
 WORKDIR /project
 
 COPY ./dragon-tiger /project/dragon-tiger
-COPY ./setup_tiger.sh /project/setup_tiger.sh
+COPY ./scripts /project/scripts
 
-RUN chmod +x /project/setup_tiger.sh
+RUN chmod +x /project/scripts/setup_tiger.sh
 
 CMD ["/bin/bash"]
 
