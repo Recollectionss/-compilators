@@ -11,6 +11,11 @@ RUN apt-get update && apt-get install -y \
     && apt-get clean
 
 WORKDIR /project
+
 COPY ./dragon-tiger /project/dragon-tiger
+COPY ./setup_tiger.sh /project/setup_tiger.sh
+
+RUN chmod +x /project/setup_tiger.sh
+
 CMD ["/bin/bash"]
 
