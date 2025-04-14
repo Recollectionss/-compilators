@@ -1,0 +1,35 @@
+let
+  /* Read a positive integer from the standard input.
+     Returns -1 on error */
+  function read_unsigned() : int =
+    let
+      var c : string := ""
+      var n : int := 0
+      var is_valid : int := 1
+    in
+      while is_valid = 1 do (
+        c := getchar();
+        if c = "" then () /* EOF */
+        else if c = "\n" then break
+        else
+          let
+            var code : int := ord(c)
+          in
+            if code >= ord("0") then
+              if code <= ord("9") then
+                n := n * 10 + (code - ord("0"))
+              else
+                is_valid := 0
+            else
+              is_valid := 0
+          end
+      );
+      if is_valid = 1 then n else -1
+    end
+
+  var a : int := read_unsigned()
+in
+  print_int(a * 2);
+  print("\n")
+end
+

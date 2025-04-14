@@ -15,7 +15,7 @@ WORKDIR /project
 COPY ./dragon-tiger /project/dragon-tiger
 COPY ./scripts /project/scripts
 
-RUN chmod +x /project/scripts/*.sh
+RUN find /project/scripts -name "*.sh" -exec chmod +x {} \;
 
 CMD ["/bin/bash"]
 

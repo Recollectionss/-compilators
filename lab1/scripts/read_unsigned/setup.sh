@@ -9,19 +9,14 @@ print_start
 cd /project/dragon-tiger
 
 # Create a test Tiger file with a simple print statement
-cp ../scripts/source/hello.tig.template hello.tig
+cp ../scripts/source/read_unsigned.tig.template read_unsigned.tig
 
 print_compile
 
 # Compile the Tiger file to an object file
-src/driver/dtiger -o hello.o hello.tig
+src/driver/dtiger -o read_unsigned.o read_unsigned.tig
 
 print_link
 
 # Link the object file with the runtime library to create an executable
-clang++ hello.o src/runtime/posix/libruntime.a -o hello -no-pie
-
-print_run
-
-# Run the compiled program
-./hello
+clang++ read_unsigned.o src/runtime/posix/libruntime.a -o read_unsigned -no-pie
