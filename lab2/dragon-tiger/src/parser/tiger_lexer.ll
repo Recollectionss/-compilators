@@ -72,6 +72,8 @@ id              [a-zA-Z][_0-9a-zA-Z]*
 
  /* Keywords */
 
+if      return yy::tiger_parser::make_IF(loc);
+then    return yy::tiger_parser::make_THEN(loc);
 else     return yy::tiger_parser::make_ELSE(loc);
 while    return yy::tiger_parser::make_WHILE(loc);
 for      return yy::tiger_parser::make_FOR(loc);
@@ -84,8 +86,21 @@ break    return yy::tiger_parser::make_BREAK(loc);
 function return yy::tiger_parser::make_FUNCTION(loc);
 var      return yy::tiger_parser::make_VAR(loc);
 
+
  /* Identifiers */
 {id}       return yy::tiger_parser::make_ID(Symbol(yytext), loc);
+
+
+[0-9]+ {
+    long val = strtol(yytext, NULL, 10);
+    if (val > TIGER_INT_MAX) {
+        utils::error(loc, "integer constant too large");
+    } else if (yytext[0] == '0' && strlen(yytext) > 1) {
+        utils::error(loc, "numbers with leading 0 are not allowed");
+    } else {
+        return yy::tiger_parser::make_INT(val, loc);
+    }
+}
 
  /* Strings */
 \" {BEGIN(STRING); string_buffer.clear();}
@@ -113,7 +128,6 @@ var      return yy::tiger_parser::make_VAR(loc);
     }
 
     "\\" utils::error (loc, "unescaping backslash");
-
     /* All other characters are accepted */
     . {string_buffer.push_back(yytext[0]);}
 }
